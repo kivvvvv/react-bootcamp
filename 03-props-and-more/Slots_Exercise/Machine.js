@@ -4,7 +4,7 @@ class Machine extends React.Component {
     const isWin = s1 === s2 && s2 === s3;
 
     return (
-      <div>
+      <div className="Machine">
         <p>
           {s1}-{s2}-{s3}
         </p>
