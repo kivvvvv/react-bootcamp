@@ -1,13 +1,26 @@
-function getMood() {
-  const moods = ["Angry", "Hungry", "Silly", "Quiet", "Paranoid"];
-  return moods[Math.floor(Math.random() * moods.length)];
+function getNum() {
+  return Math.floor(Math.random() * 10) + 1;
 }
 
 class JSXDemo extends React.Component {
   render() {
+    const num = getNum();
+    let msg;
+    if (num === 7) {
+      msg = (
+        <div>
+          <h2>CONGRATS YOU WIN!</h2>
+          <img src="https://i.giphy.com/media/nXxOjZrbnbRxS/giphy.webp" />
+        </div>
+      );
+    } else {
+      msg = <p>Sorry You Lose!</p>;
+    }
+
     return (
       <div>
-        <h1>My Current Mood is: {getMood()}</h1>
+        <h1>Your number is: {num} </h1>
+        {msg}
       </div>
     );
   }
