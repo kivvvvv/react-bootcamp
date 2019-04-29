@@ -8,7 +8,7 @@ class Machine extends React.Component {
         <p style={{ fontSize: "50px", background: "purple" }}>
           {s1}-{s2}-{s3}
         </p>
-        <p>You {isWin ? "win" : "lose"}!</p>
+        <p className={isWin ? "win" : "lose"}>You {isWin ? "win" : "lose"}!</p>
       </div>
     );
   }

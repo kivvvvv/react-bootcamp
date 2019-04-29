@@ -2,3 +2,13 @@
   border: 2px solid black;
   background: lightblue;
 }
+
+.win {
+  background: green;
+  color: white;
+}
+
+.lose {
+  background: red;
+  color: white;
+}
