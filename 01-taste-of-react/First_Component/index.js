@@ -5,6 +5,7 @@ class App extends React.Component {
         <Hello />
         <Hello />
         <Hello />
+        <NumPicker />
       </div>
     );
   }
