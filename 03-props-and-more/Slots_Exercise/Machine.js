@@ -5,7 +5,7 @@ class Machine extends React.Component {
 
     return (
       <div className="Machine">
-        <p>
+        <p style={{ fontSize: "50px", background: "purple" }}>
           {s1}-{s2}-{s3}
         </p>
         <p>You {isWin ? "win" : "lose"}!</p>
