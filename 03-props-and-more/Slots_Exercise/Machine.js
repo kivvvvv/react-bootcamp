@@ -1,14 +1,14 @@
 class Machine extends React.Component {
   render() {
-    let gameStatus =
-      this.props.s1 === this.props.s2 && this.props.s2 === this.props.s3;
+    const { s1, s2, s3 } = this.props;
+    const isWin = s1 === s2 && s2 === s3;
 
     return (
       <div>
         <p>
-          {this.props.s1}-{this.props.s2}-{this.props.s3}
+          {s1}-{s2}-{s3}
         </p>
-        <p>You {gameStatus ? "win" : "lose"}!</p>
+        <p>You {isWin ? "win" : "lose"}!</p>
       </div>
     );
   }
