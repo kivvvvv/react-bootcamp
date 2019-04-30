@@ -1,4 +1,4 @@
-let fruits = [
+const foods = [
   "grape",
   "melon",
   "watermelon",
@@ -16,4 +16,4 @@ let fruits = [
   "avocado"
 ];
 
-export default fruits;
+export default foods;

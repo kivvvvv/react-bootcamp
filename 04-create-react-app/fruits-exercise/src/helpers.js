@@ -1,9 +1,14 @@
-const choice = array => array[Math.floor(Math.random() * array.length)];
+function choice(items) {
+  let idx = Math.floor(Math.random() * items.length);
+  return items[idx];
+}
 
-const remove = (items, item) => {
-  const itemIndex = items.findIndex(element => element === item);
-  if (itemIndex > 0) return items.splice(itemIndex, 1)[0];
-  else return undefined;
-};
+function remove(items, item) {
+  for (let i = 0; i < items.length; i++) {
+    if (items[i] === item) {
+      return [...items.slice(0, i), ...items.slice(i + 1)];
+    }
+  }
+}
 
 export { choice, remove };
