@@ -7,7 +7,11 @@ class Pokecard extends Component {
     return (
       <figure className="Pokecard">
         <header className="Pokecard-header">{name}</header>
-        <img src={image} alt={`a pokemon name ${name}`} />
+        <img
+          className="Pokecard-image"
+          src={image}
+          alt={`a pokemon name ${name}`}
+        />
         <figcaption className="Pokecard-type">Type: {type}</figcaption>
         <figcaption className="Pokecard-exp">EXP: {exp}</figcaption>
       </figure>

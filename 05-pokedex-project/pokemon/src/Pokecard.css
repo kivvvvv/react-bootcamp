@@ -12,6 +12,15 @@
   font-size: 1.1rem;
 }
 
+.Pokecard-image {
+  transition: all 0.25s ease-in-out;
+}
+
+.Pokecard-image:hover {
+  transform: scale(1.2);
+  filter: brightness(125%);
+}
+
 .Pokecard-type,
 .Pokecard-exp {
   font-size: 0.9rem;
