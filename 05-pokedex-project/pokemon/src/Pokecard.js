@@ -5,11 +5,11 @@ class Pokecard extends Component {
   render() {
     const { name, image, type, exp } = this.props;
     return (
-      <figure>
-        <header>{name}</header>
+      <figure className="Pokecard">
+        <header className="Pokecard-header">{name}</header>
         <img src={image} alt={`a pokemon name ${name}`} />
-        <figcaption>Type: {type}</figcaption>
-        <figcaption>EXP: {exp}</figcaption>
+        <figcaption className="Pokecard-type">Type: {type}</figcaption>
+        <figcaption className="Pokecard-exp">EXP: {exp}</figcaption>
       </figure>
     );
   }
