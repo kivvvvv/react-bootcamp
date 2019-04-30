@@ -14,9 +14,9 @@ class Pokedex extends Component {
             return (
               <Pokecard
                 name={pokemon.name}
-                image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-                  pokemon.id
-                }.png`}
+                image={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${pokemon.id
+                  .toString()
+                  .padStart(3, "0")}.png`}
                 type={pokemon.type}
                 exp={pokemon.base_experience}
               />
