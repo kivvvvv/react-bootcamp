@@ -1,4 +1,14 @@
 .Pokedex {
+  width: 1000px;
+}
+
+.Pokedex-header {
+  color: grey;
+  text-align: center;
+}
+
+.Pokedex-grid {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
