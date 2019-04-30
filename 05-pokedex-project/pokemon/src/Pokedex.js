@@ -1,61 +1,33 @@
 import React, { Component } from "react";
 import Pokecard from "./Pokecard";
+import Pokemons from "./Pokemons";
+import { randomPokemon } from "./helpers";
 import "./Pokedex.css";
 
 class Pokedex extends Component {
   render() {
+    let randomedPokemons = [];
+    while (Pokemons.length > 0) {
+      const randomedPokemon = randomPokemon(Pokemons);
+      randomedPokemons.push(randomedPokemon);
+    }
+
     return (
       <section className="Pokedex">
         <h1 className="Pokedex-header">Pokedex</h1>
         <div className="Pokedex-grid">
-          <Pokecard
-            name="Charmander"
-            image="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
-            type="fire"
-            exp="62"
-          />
-          <Pokecard
-            name="Charmander"
-            image="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
-            type="fire"
-            exp="62"
-          />
-          <Pokecard
-            name="Charmander"
-            image="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
-            type="fire"
-            exp="62"
-          />
-          <Pokecard
-            name="Charmander"
-            image="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
-            type="fire"
-            exp="62"
-          />
-          <Pokecard
-            name="Charmander"
-            image="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
-            type="fire"
-            exp="62"
-          />
-          <Pokecard
-            name="Charmander"
-            image="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
-            type="fire"
-            exp="62"
-          />
-          <Pokecard
-            name="Charmander"
-            image="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
-            type="fire"
-            exp="62"
-          />
-          <Pokecard
-            name="Charmander"
-            image="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
-            type="fire"
-            exp="62"
-          />
+          {randomedPokemons.map(pokemon => {
+            return (
+              <Pokecard
+                name={pokemon.name}
+                image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+                  pokemon.id
+                }.png`}
+                type={pokemon.type}
+                exp={pokemon.base_experience}
+              />
+            );
+          })}
         </div>
       </section>
     );
