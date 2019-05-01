@@ -16,10 +16,13 @@ class Pokegame extends Component {
       return (exp += card.base_experience);
     }, 0);
 
+    const isHand1Win = totalExp1 > totalExp2;
+    const isHand2Win = totalExp2 > totalExp1;
+
     return (
       <div className="Pokegame">
-        <Pokedex cards={hand1} totalExp={totalExp1} />
-        <Pokedex cards={hand2} totalExp={totalExp2} />
+        <Pokedex cards={hand1} totalExp={totalExp1} isWinner={isHand1Win} />
+        <Pokedex cards={hand2} totalExp={totalExp2} isWinner={isHand2Win} />
       </div>
     );
   }

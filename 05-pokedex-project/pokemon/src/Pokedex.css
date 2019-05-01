@@ -1,5 +1,9 @@
 .Pokedex-header {
-  color: grey;
+  text-align: center;
+}
+
+.Pokedex-total-exp {
+  margin: 0;
   text-align: center;
 }
 
@@ -7,4 +11,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.Pokedex-header--winner {
+  color: green;
+}
+
+.Pokedex-header--loser {
+  color: red;
 }
