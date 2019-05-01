@@ -4,10 +4,10 @@ import "./Pokedex.css";
 
 class Pokedex extends Component {
   render() {
-    const { cards } = this.props;
+    const { cards, totalExp } = this.props;
     return (
       <section className="Pokedex">
-        <h1 className="Pokedex-header">Pokedex</h1>
+        <h1 className="Pokedex-header">{totalExp}</h1>
         <div className="Pokedex-grid">
           {cards.map(card => {
             return (

@@ -7,11 +7,19 @@ import "./Pokegame.css";
 class Pokegame extends Component {
   render() {
     const shuffledPokemons = shuffleArray(Pokemons);
+    const hand1 = shuffledPokemons.slice(0, 4);
+    const hand2 = shuffledPokemons.slice(4);
+    const totalExp1 = hand1.reduce((exp, card) => {
+      return (exp += card.base_experience);
+    }, 0);
+    const totalExp2 = hand2.reduce((exp, card) => {
+      return (exp += card.base_experience);
+    }, 0);
 
     return (
       <div className="Pokegame">
-        <Pokedex cards={shuffledPokemons.slice(0, 4)} />
-        <Pokedex cards={shuffledPokemons.slice(4)} />
+        <Pokedex cards={hand1} totalExp={totalExp1} />
+        <Pokedex cards={hand2} totalExp={totalExp2} />
       </div>
     );
   }
