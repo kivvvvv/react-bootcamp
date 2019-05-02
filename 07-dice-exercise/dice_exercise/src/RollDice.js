@@ -45,7 +45,7 @@ class RollDice extends Component {
           onClick={this.roll}
           disabled={this.state.rolling}
         >
-          Roll Dice!
+          {this.state.rolling ? "Rolling..." : "Roll Dice!"}
         </button>
       </div>
     );
