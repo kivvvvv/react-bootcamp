@@ -40,8 +40,12 @@ class RollDice extends Component {
             <Dice face={face} />
           ))}
         </div>
-        <button onClick={this.roll} disabled={this.state.rolling}>
-          Roll Dice
+        <button
+          className="RollDice-button"
+          onClick={this.roll}
+          disabled={this.state.rolling}
+        >
+          Roll Dice!
         </button>
       </div>
     );
