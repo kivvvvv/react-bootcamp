@@ -6,7 +6,7 @@ class Dice extends Component {
     const diceFace = "fas fa-dice-";
 
     return (
-      <div className="Dice">
+      <div className="Dice animated">
         <i className={`${diceFace}${this.props.face}`} />
       </div>
     );

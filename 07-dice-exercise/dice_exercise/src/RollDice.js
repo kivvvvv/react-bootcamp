@@ -9,7 +9,8 @@ class RollDice extends Component {
   constructor() {
     super();
     this.state = {
-      diceFaces: ["one", "one"]
+      diceFaces: ["one", "one"],
+      rolling: false
     };
     this.roll = this.roll.bind(this);
   }
@@ -19,8 +20,17 @@ class RollDice extends Component {
     this.setState({
       diceFaces: this.state.diceFaces.map(
         () => faces[Math.floor(Math.random() * faces.length)]
-      )
+      ),
+      rolling: true
     });
+
+    const dices = document.querySelectorAll(".Dice");
+    dices.forEach(dice => dice.classList.toggle("wobble"));
+
+    setTimeout(() => {
+      dices.forEach(dice => dice.classList.toggle("wobble"));
+      this.setState({ rolling: false });
+    }, 1000);
   }
   render() {
     return (
@@ -30,7 +40,9 @@ class RollDice extends Component {
             <Dice face={face} />
           ))}
         </div>
-        <button onClick={this.roll}>Roll Dice</button>
+        <button onClick={this.roll} disabled={this.state.rolling}>
+          Roll Dice
+        </button>
       </div>
     );
   }
