@@ -8,7 +8,7 @@ class CoinContainer extends Component {
   constructor() {
     super();
     this.state = {
-      flips: 0,
+      flips: 1,
       heads: 0,
       tails: 0
     };
@@ -17,10 +17,10 @@ class CoinContainer extends Component {
     return (
       <section>
         <h1>Let's flip a coin!</h1>
-        <Coin url={this.props.head} />
+        {this.state.flips === 0 ? "" : <Coin url={this.props.head} />}
         <button>FLIP MEEE</button>
         <p>
-          Out of {this.state.flips} flips, there have been {this.state.heads}
+          Out of {this.state.flips} flips, there have been {this.state.heads}{" "}
           heads and {this.state.tails} tails.
         </p>
       </section>
