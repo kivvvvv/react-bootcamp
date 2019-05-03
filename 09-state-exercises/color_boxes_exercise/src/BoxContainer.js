@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Box from "./Box";
+import "./BoxContainer.css";
 
 export default class BoxContainer extends Component {
   static defaultProps = {
@@ -11,6 +12,6 @@ export default class BoxContainer extends Component {
       boxes.push(<Box />);
     }
 
-    return <div>{boxes}</div>;
+    return <div className="BoxContainer">{boxes}</div>;
   }
 }
