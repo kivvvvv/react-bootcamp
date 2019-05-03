@@ -7,6 +7,7 @@ class Lottery extends Component {
     numBalls: 6,
     maxNum: 40
   };
+
   constructor(props) {
     super(props);
 
@@ -17,13 +18,23 @@ class Lottery extends Component {
       nums.push(randNum);
     }
     this.state = { nums: nums };
+    this.genRandomNums = this.genRandomNums.bind(this);
+  }
+  genRandomNums() {
+    const newNums = this.state.nums.map(
+      () => Math.floor(Math.random() * this.props.maxNum) + 1
+    );
+    this.setState({ nums: newNums });
   }
   render() {
     return (
       <div>
-        {this.state.nums.map(num => (
-          <LotteryBall num={num} />
-        ))}
+        <div>
+          {this.state.nums.map(num => (
+            <LotteryBall num={num} />
+          ))}
+        </div>
+        <button onClick={this.genRandomNums}>Generate</button>
       </div>
     );
   }
