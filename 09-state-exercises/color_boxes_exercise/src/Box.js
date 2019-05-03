@@ -172,9 +172,22 @@ export default class Box extends Component {
     };
   }
 
+  handleClick(e) {
+    const currentColor = e.target.style.backgroundColor;
+    this.setState({
+      currentColor: this.genColor(currentColor)
+    });
+  }
+
   render() {
     return (
-      <div className="Box" style={{ background: this.state.currentColor }} />
+      <div
+        className="Box"
+        onClick={e => {
+          this.handleClick(e);
+        }}
+        style={{ background: this.state.currentColor }}
+      />
     );
   }
 }
