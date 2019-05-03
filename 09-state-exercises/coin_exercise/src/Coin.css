@@ -1,0 +1,7 @@
+.Coin {
+  height: 30vh;
+}
+
+.Coin > img {
+  height: 100%;
+}

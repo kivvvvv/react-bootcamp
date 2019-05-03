@@ -20,7 +20,7 @@ class CoinContainer extends Component {
         <Coin url={this.props.head} />
         <button>FLIP MEEE</button>
         <p>
-          Out of {this.state.flips} flips, there have been {this.state.heads}{" "}
+          Out of {this.state.flips} flips, there have been {this.state.heads}
           heads and {this.state.tails} tails.
         </p>
       </section>
