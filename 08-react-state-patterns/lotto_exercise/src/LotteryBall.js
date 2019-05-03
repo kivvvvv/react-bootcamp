@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import "./LotteryBall.css";
 
 class LotteryBall extends Component {
   render() {
-    return <div>{this.props.num}</div>;
+    return <div className="LotteryBall">{this.props.num}</div>;
   }
 }
 
