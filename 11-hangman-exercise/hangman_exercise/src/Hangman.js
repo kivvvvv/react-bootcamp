@@ -25,6 +25,10 @@ class Hangman extends Component {
     if guessed letters are {a,p,e}, show "app_e" for "apple"
   */
   guessedWord() {
+    if (this.isOver()) {
+      return this.state.answer;
+    }
+
     return this.state.answer
       .split("")
       .map(ltr => (this.state.guessed.has(ltr) ? ltr : "_"));
@@ -44,6 +48,10 @@ class Hangman extends Component {
 
   /** generateButtons: return array of letter buttons to render */
   generateButtons() {
+    if (this.isOver()) {
+      return <p className="Hangman-over">You lose</p>;
+    }
+
     return "abcdefghijklmnopqrstuvwxyz".split("").map(ltr => (
       <button
         key={ltr}
@@ -54,6 +62,10 @@ class Hangman extends Component {
         {ltr}
       </button>
     ));
+  }
+
+  isOver() {
+    return this.state.nWrong >= this.props.maxWrong;
   }
 
   /** render: render game */
