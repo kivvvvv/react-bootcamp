@@ -43,6 +43,12 @@ main > .Hangman-img {
   margin: 1rem 0;
 }
 
+.Hangman-win {
+  color: green;
+  font-size: 3rem;
+  margin: 1rem 0;
+}
+
 .Hangman-btns {
   text-align: center;
   display: inline-block;

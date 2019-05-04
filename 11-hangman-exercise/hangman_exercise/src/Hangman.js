@@ -52,6 +52,8 @@ class Hangman extends Component {
   generateButtons() {
     if (this.isOver()) {
       return <p className="Hangman-over">You lose</p>;
+    } else if (this.isWin()) {
+      return <p className="Hangman-win">You win</p>;
     }
 
     return "abcdefghijklmnopqrstuvwxyz".split("").map(ltr => (
@@ -68,6 +70,12 @@ class Hangman extends Component {
 
   isOver() {
     return this.state.nWrong >= this.props.maxWrong;
+  }
+
+  isWin() {
+    return this.state.answer
+      .split("")
+      .every(ltr => this.state.guessed.has(ltr));
   }
 
   reset() {
