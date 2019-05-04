@@ -79,18 +79,27 @@ class Hangman extends Component {
     const { images, maxWrong } = this.props;
     const { nWrong } = this.state;
     return (
-      <div className="Hangman">
+      <section className="Hangman">
         <h1>Hangman</h1>
-        <img src={images[nWrong]} alt={`${nWrong}/${maxWrong} wrong guesses`} />
-        <p className="Hangman-wrong-guesses">{`Wrong guesses: ${nWrong}`}</p>
-        <p className="Hangman-word">{this.guessedWord()}</p>
-        <p className="Hangman-btns">{this.generateButtons()}</p>
-        <div>
-          <button className="Hangman-reset" onClick={this.reset}>
-            RESET
-          </button>
-        </div>
-      </div>
+        <main>
+          <div className="Hangman-img">
+            <img
+              src={images[nWrong]}
+              alt={`${nWrong}/${maxWrong} wrong guesses`}
+            />
+          </div>
+          <div className="Hangman-console">
+            <p className="Hangman-wrong-guesses">{`Wrong guesses: ${nWrong}`}</p>
+            <p className="Hangman-word">{this.guessedWord()}</p>
+            <p className="Hangman-btns">{this.generateButtons()}</p>
+            <div>
+              <button className="Hangman-reset" onClick={this.reset}>
+                RESET
+              </button>
+            </div>
+          </div>
+        </main>
+      </section>
     );
   }
 }
