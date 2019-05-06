@@ -29,17 +29,42 @@ import "./Board.css";
  **/
 
 class Board extends Component {
+  static defaultProps = {
+    nrows: 5,
+    ncols: 5,
+    chanceLightStartsOn: 0.5
+  };
+
   constructor(props) {
     super(props);
 
     // TODO: set initial state
+    this.state = {
+      hasWon: false,
+      board: this.createBoard()
+    };
   }
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
 
   createBoard() {
-    let board = [];
+    const { ncols, nrows, chanceLightStartsOn } = this.props;
+
+    // Create array's first dimension -- width
+    const board = new Array(ncols);
+
     // TODO: create array-of-arrays of true/false values
+    for (let iCol = 0; iCol < board.length; iCol++) {
+      // Create array's second dimension -- depth
+      board[iCol] = new Array(nrows);
+    }
+
+    for (let iCol = 0; iCol < board.length; iCol++) {
+      for (let iRow = 0; iRow < board.length; iRow++) {
+        board[iCol][iRow] = Math.random() < chanceLightStartsOn ? true : false;
+      }
+    }
+
     return board;
   }
 
@@ -63,7 +88,7 @@ class Board extends Component {
     // win when every cell is turned off
     // TODO: determine is the game has been won
 
-    this.setState({ board, hasWon });
+    // this.setState({ board, hasWon });
   }
 
   /** Render game board or winning message. */
@@ -73,6 +98,7 @@ class Board extends Component {
     // TODO
     // make table board
     // TODO
+    return null;
   }
 }
 
