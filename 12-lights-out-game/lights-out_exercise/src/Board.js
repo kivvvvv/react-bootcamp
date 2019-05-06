@@ -51,20 +51,18 @@ class Board extends Component {
 
   createBoard() {
     const { ncols, nrows, chanceLightStartsOn } = this.props;
-
-    // Create array's first dimension -- width
-    const board = new Array(ncols);
+    const board = [];
 
     // TODO: create array-of-arrays of true/false values
-    for (let iCol = 0; iCol < board.length; iCol++) {
-      // Create array's second dimension -- height
-      board[iCol] = new Array(nrows);
-    }
-
-    for (let iCol = 0; iCol < board.length; iCol++) {
-      for (let iRow = 0; iRow < board.length; iRow++) {
-        board[iCol][iRow] = Math.random() < chanceLightStartsOn ? true : false;
+    // From how we access the 2D-array structure, we need to go through its row first
+    for (let iRow = 0; iRow < nrows; iRow++) {
+      let row = [];
+      // Once in the row, we fill each column
+      for (let iCol = 0; iCol < ncols; iCol++) {
+        row.push(Math.random() < chanceLightStartsOn ? true : false);
       }
+
+      board.push(row);
     }
 
     return board;
