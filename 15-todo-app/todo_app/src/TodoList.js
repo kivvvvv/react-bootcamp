@@ -9,6 +9,7 @@ export default class TodoList extends Component {
       todos: []
     };
     this.addTodo = this.addTodo.bind(this);
+    this.deleteTodo = this.deleteTodo.bind(this);
   }
   addTodo(newTodo) {
     this.setState(state => {
@@ -17,9 +18,21 @@ export default class TodoList extends Component {
       };
     });
   }
+  deleteTodo(id) {
+    this.setState(state => {
+      return {
+        todos: state.todos.filter(todo => todo.id !== id)
+      };
+    });
+  }
   renderTodo() {
     return this.state.todos.map(todo => (
-      <Todo key={todo.id} text={todo.text} />
+      <Todo
+        key={todo.id}
+        text={todo.text}
+        id={todo.id}
+        deleteTodo={this.deleteTodo}
+      />
     ));
   }
   render() {
