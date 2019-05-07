@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import NewBoxForm from "./NewBoxForm";
 import Box from "./Box";
 
 export default class BoxList extends Component {
@@ -13,9 +14,11 @@ export default class BoxList extends Component {
   render() {
     const { width, height, backgroundColor } = this.state;
     return (
-      <div>
+      <section>
+        <h1>Box Maker Thingy</h1>
+        <NewBoxForm />
         <Box width={width} height={height} backgroundColor={backgroundColor} />
-      </div>
+      </section>
     );
   }
 }
