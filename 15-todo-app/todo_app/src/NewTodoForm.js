@@ -6,8 +6,10 @@ export default class NewTodoForm extends Component {
     super(props);
     this.state = {
       id: "",
-      text: ""
+      text: "",
+      edit: false
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -15,14 +17,20 @@ export default class NewTodoForm extends Component {
     const target = e.target;
     const name = target.name;
     const value = target.value;
-    this.setState({ [name]: value, id: uuid() });
+    this.setState(state => {
+      return {
+        ...state,
+        [name]: value
+      };
+    });
   }
   handleSubmit(e) {
     e.preventDefault();
-    this.props.addTodo(this.state);
+    this.props.addTodo({ ...this.state, id: uuid() });
     this.setState({
       id: "",
-      text: ""
+      text: "",
+      edit: false
     });
   }
   render() {

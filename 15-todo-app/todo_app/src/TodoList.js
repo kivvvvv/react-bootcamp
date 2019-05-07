@@ -8,8 +8,10 @@ export default class TodoList extends Component {
     this.state = {
       todos: []
     };
+
     this.addTodo = this.addTodo.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
+    this.editingTodo = this.editingTodo.bind(this);
   }
   addTodo(newTodo) {
     this.setState(state => {
@@ -25,13 +27,23 @@ export default class TodoList extends Component {
       };
     });
   }
-  renderTodo() {
+  editingTodo(id) {
+    this.setState(state => {
+      const currentTodo = state.todos.find(todo => todo.id === id);
+      currentTodo.edit = !currentTodo.edit;
+
+      return state;
+    });
+  }
+  renderTodos() {
     return this.state.todos.map(todo => (
       <Todo
         key={todo.id}
         text={todo.text}
         id={todo.id}
+        edit={todo.edit}
         deleteTodo={this.deleteTodo}
+        editingTodo={this.editingTodo}
       />
     ));
   }
@@ -44,7 +56,7 @@ export default class TodoList extends Component {
         </header>
         <div>
           {this.state.todos.length > 0 ? (
-            this.renderTodo()
+            this.renderTodos()
           ) : (
             <p>There is no todo.</p>
           )}
