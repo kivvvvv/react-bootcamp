@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Todo from "./Todo";
+import NewTodoForm from "./NewTodoForm";
 
 export default class TodoList extends Component {
   constructor() {
@@ -24,6 +25,9 @@ export default class TodoList extends Component {
           ) : (
             <p>There is no todo.</p>
           )}
+        </div>
+        <div>
+          <NewTodoForm />
         </div>
       </section>
     );
