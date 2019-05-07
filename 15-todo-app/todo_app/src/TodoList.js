@@ -6,11 +6,19 @@ export default class TodoList extends Component {
   constructor() {
     super();
     this.state = {
-      todos: [{ id: 1, text: "test1" }, { id: 2, text: "test2" }]
+      todos: []
     };
+    this.addTodo = this.addTodo.bind(this);
+  }
+  addTodo(newTodo) {
+    this.setState(state => {
+      return {
+        todos: [...state.todos, newTodo]
+      };
+    });
   }
   renderTodo() {
-    return this.state.todos.map(todo => <Todo id={todo.id} text={todo.text} />);
+    return this.state.todos.map(todo => <Todo text={todo.text} />);
   }
   render() {
     return (
@@ -27,7 +35,7 @@ export default class TodoList extends Component {
           )}
         </div>
         <div>
-          <NewTodoForm />
+          <NewTodoForm addTodo={this.addTodo} />
         </div>
       </section>
     );
