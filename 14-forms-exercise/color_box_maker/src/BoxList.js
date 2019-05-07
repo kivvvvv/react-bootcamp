@@ -6,18 +6,36 @@ export default class BoxList extends Component {
   constructor() {
     super();
     this.state = {
-      width: 200,
-      height: 200,
-      backgroundColor: "red"
+      boxes: []
     };
+    this.addBox = this.addBox.bind(this);
+  }
+  addBox(properties) {
+    const { width, height, backgroundColor } = properties;
+    this.setState(state => {
+      return {
+        boxes: [...state.boxes, { width, height, backgroundColor }]
+      };
+    });
+  }
+  renderBoxes() {
+    const { boxes } = this.state;
+    if (boxes.length > 0) {
+      return boxes.map(box => (
+        <Box
+          width={`${box.width}px`}
+          height={`${box.height}px`}
+          backgroundColor={box.backgroundColor}
+        />
+      ));
+    }
   }
   render() {
-    const { width, height, backgroundColor } = this.state;
     return (
       <section>
         <h1>Box Maker Thingy</h1>
-        <NewBoxForm />
-        <Box width={width} height={height} backgroundColor={backgroundColor} />
+        <NewBoxForm addBox={this.addBox} />
+        {this.renderBoxes()}
       </section>
     );
   }
