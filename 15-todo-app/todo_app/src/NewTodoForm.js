@@ -6,8 +6,7 @@ export default class NewTodoForm extends Component {
     super(props);
     this.state = {
       id: "",
-      text: "",
-      edit: false
+      text: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,8 +28,7 @@ export default class NewTodoForm extends Component {
     this.props.addTodo({ ...this.state, id: uuid() });
     this.setState({
       id: "",
-      text: "",
-      edit: false
+      text: ""
     });
   }
   render() {

@@ -13,7 +13,8 @@ export default class TodoList extends Component {
     this.deleteTodo = this.deleteTodo.bind(this);
     this.editingTodo = this.editingTodo.bind(this);
   }
-  addTodo(newTodo) {
+  addTodo(todo) {
+    const newTodo = { ...todo, edit: false };
     this.setState(state => {
       return {
         todos: [...state.todos, newTodo]
