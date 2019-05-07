@@ -18,7 +18,9 @@ export default class TodoList extends Component {
     });
   }
   renderTodo() {
-    return this.state.todos.map(todo => <Todo text={todo.text} />);
+    return this.state.todos.map(todo => (
+      <Todo key={todo.id} text={todo.text} />
+    ));
   }
   render() {
     return (

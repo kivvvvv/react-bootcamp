@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import uuid from "uuid/v4";
 
 export default class NewTodoForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: "",
       text: ""
     };
     this.handleChange = this.handleChange.bind(this);
@@ -13,12 +15,13 @@ export default class NewTodoForm extends Component {
     const target = e.target;
     const name = target.name;
     const value = target.value;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value, id: uuid() });
   }
   handleSubmit(e) {
     e.preventDefault();
     this.props.addTodo(this.state);
     this.setState({
+      id: "",
       text: ""
     });
   }
