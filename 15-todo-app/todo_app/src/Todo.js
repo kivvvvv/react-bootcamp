@@ -3,9 +3,14 @@ import React, { Component } from "react";
 export default class Todo extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      text: this.props.text,
+      edit: this.props.edit
+    };
 
     this.handleDeleteTodo = this.handleDeleteTodo.bind(this);
     this.handleEditingTodo = this.handleEditingTodo.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   handleDeleteTodo() {
     this.props.deleteTodo(this.props.id);
@@ -13,13 +18,31 @@ export default class Todo extends Component {
   handleEditingTodo() {
     this.props.editingTodo(this.props.id);
   }
+  handleChange(e) {
+    const target = e.target;
+    const name = target.name;
+    const value = target.value;
+    this.setState(state => {
+      return {
+        ...state,
+        [name]: value
+      };
+    });
+  }
   render() {
     return (
       <div>
         {this.props.edit ? (
           <div>
-            <input type="text" value={this.props.text} />
-            <button>SAVE</button>
+            <form>
+              <input
+                type="text"
+                name="text"
+                value={this.state.text}
+                onChange={this.handleChange}
+              />
+              <button>SAVE</button>
+            </form>
           </div>
         ) : (
           <div>
