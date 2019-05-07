@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import NewBoxForm from "./NewBoxForm";
+import uuid from "uuid/v4";
 import Box from "./Box";
 
 export default class BoxList extends Component {
@@ -14,7 +15,10 @@ export default class BoxList extends Component {
     const { width, height, backgroundColor } = properties;
     this.setState(state => {
       return {
-        boxes: [...state.boxes, { width, height, backgroundColor }]
+        boxes: [
+          ...state.boxes,
+          { width, height, backgroundColor, uuid: uuid() }
+        ]
       };
     });
   }
