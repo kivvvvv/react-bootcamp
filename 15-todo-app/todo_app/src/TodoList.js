@@ -12,6 +12,7 @@ export default class TodoList extends Component {
     this.addTodo = this.addTodo.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
     this.editingTodo = this.editingTodo.bind(this);
+    this.saveTodo = this.saveTodo.bind(this);
   }
   addTodo(todo) {
     const newTodo = { ...todo, edit: false };
@@ -36,6 +37,15 @@ export default class TodoList extends Component {
       return state;
     });
   }
+  saveTodo(id, text) {
+    this.setState(state => {
+      const currentTodo = state.todos.find(todo => todo.id === id);
+      currentTodo.text = text;
+      currentTodo.edit = false;
+
+      return state;
+    });
+  }
   renderTodos() {
     return this.state.todos.map(todo => (
       <Todo
@@ -45,6 +55,7 @@ export default class TodoList extends Component {
         edit={todo.edit}
         deleteTodo={this.deleteTodo}
         editingTodo={this.editingTodo}
+        saveTodo={this.saveTodo}
       />
     ));
   }

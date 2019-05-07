@@ -4,13 +4,13 @@ export default class Todo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: this.props.text,
-      edit: this.props.edit
+      text: this.props.text
     };
 
     this.handleDeleteTodo = this.handleDeleteTodo.bind(this);
     this.handleEditingTodo = this.handleEditingTodo.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleDeleteTodo() {
     this.props.deleteTodo(this.props.id);
@@ -29,12 +29,15 @@ export default class Todo extends Component {
       };
     });
   }
+  handleSubmit() {
+    this.props.saveTodo(this.props.id, this.state.text);
+  }
   render() {
     return (
       <div>
         {this.props.edit ? (
           <div>
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <input
                 type="text"
                 name="text"
