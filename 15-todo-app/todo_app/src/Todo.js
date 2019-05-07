@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./Todo.css";
 
 export default class Todo extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ export default class Todo extends Component {
     this.handleEditingTodo = this.handleEditingTodo.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
   handleDeleteTodo() {
     this.props.deleteTodo(this.props.id);
@@ -32,24 +34,48 @@ export default class Todo extends Component {
   handleSubmit() {
     this.props.saveTodo(this.props.id, this.state.text);
   }
-  render() {
+  handleClick() {
+    this.props.doneTodo(this.props.id);
+  }
+  renderEditingTodo() {
     return (
       <div>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            name="text"
+            value={this.state.text}
+            onChange={this.handleChange}
+          />
+          <button>SAVE</button>
+        </form>
+      </div>
+    );
+  }
+  renderTodoItemText() {
+    if (this.props.done)
+      return (
+        <p
+          className="Todo__item__text Todo__item__text--done"
+          onClick={this.handleClick}
+        >
+          {this.props.text}
+        </p>
+      );
+    return (
+      <p className="Todo__item__text" onClick={this.handleClick}>
+        {this.props.text}
+      </p>
+    );
+  }
+  render() {
+    return (
+      <div className="Todo">
         {this.props.edit ? (
-          <div>
-            <form onSubmit={this.handleSubmit}>
-              <input
-                type="text"
-                name="text"
-                value={this.state.text}
-                onChange={this.handleChange}
-              />
-              <button>SAVE</button>
-            </form>
-          </div>
+          this.renderEditingTodo()
         ) : (
-          <div>
-            <p>{this.props.text}</p>
+          <div className="Todo__item">
+            {this.renderTodoItemText()}
             <button onClick={this.handleDeleteTodo}>DELETE</button>
             <button onClick={this.handleEditingTodo}>EDIT</button>
           </div>

@@ -1,0 +1,4 @@
+.Todo__item__text--done {
+  color: grey;
+  text-decoration: line-through;
+}
