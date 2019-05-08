@@ -66,6 +66,8 @@ export default class TodoList extends Component {
       const currentTodo = state.todos.find(todo => todo.id === id);
       currentTodo.done = !currentTodo.done;
 
+      localStorage.setItem("todos", JSON.stringify(state.todos));
+
       return state;
     });
   }
