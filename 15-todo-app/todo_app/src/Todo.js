@@ -39,17 +39,16 @@ export default class Todo extends Component {
   }
   renderEditingTodo() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            name="text"
-            value={this.state.text}
-            onChange={this.handleChange}
-          />
-          <button>SAVE</button>
-        </form>
-      </div>
+      <form className="Todo__form" onSubmit={this.handleSubmit}>
+        <input
+          type="text"
+          name="text"
+          value={this.state.text}
+          onChange={this.handleChange}
+          className="Todo__form__input"
+        />
+        <button className="Todo__form__button">SAVE</button>
+      </form>
     );
   }
   renderTodoItemText() {
@@ -68,19 +67,26 @@ export default class Todo extends Component {
       </p>
     );
   }
-  render() {
-    return (
-      <div className="Todo">
-        {this.props.edit ? (
-          this.renderEditingTodo()
-        ) : (
-          <div className="Todo__item">
-            {this.renderTodoItemText()}
-            <button onClick={this.handleDeleteTodo}>DELETE</button>
-            <button onClick={this.handleEditingTodo}>EDIT</button>
+  renderTodos() {
+    if (this.props.edit) {
+      return <div className="Todo__item">{this.renderEditingTodo()}</div>;
+    } else {
+      return (
+        <div className="Todo__item">
+          {this.renderTodoItemText()}
+          <div className="Todo__item__controls">
+            <div onClick={this.handleEditingTodo}>
+              <i className="fas fa-pen" />
+            </div>
+            <div onClick={this.handleDeleteTodo}>
+              <i className="fas fa-trash" />
+            </div>
           </div>
-        )}
-      </div>
-    );
+        </div>
+      );
+    }
+  }
+  render() {
+    return <div className="Todo">{this.renderTodos()}</div>;
   }
 }

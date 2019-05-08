@@ -1,4 +1,56 @@
+.Todo {
+  margin-bottom: 5px;
+  background: #f97575;
+}
+
+.Todo__item {
+  display: flex;
+  padding: 20px 40px;
+  font-size: 1.2rem;
+}
+
+.Todo__item__text {
+  margin: 0;
+  flex-basis: 80%;
+}
+
 .Todo__item__text--done {
-  color: grey;
+  color: #d8c9c9;
   text-decoration: line-through;
+}
+
+.Todo__form {
+  width: 100%;
+}
+
+.Todo__form__input {
+  width: 50%;
+  height: 100%;
+  padding: 0 20px;
+  border: 0;
+  font: inherit;
+  vertical-align: middle;
+}
+
+.Todo__form__button {
+  padding: 8px 16px;
+  border: 0;
+  margin: 3px 5px;
+  text-align: center;
+  background: #fc5c65;
+  color: white;
+  font-weight: bold;
+}
+
+.Todo__form__button:hover {
+  margin: 0 2px;
+  border: 3px solid white;
+}
+
+.Todo__item__controls {
+  display: flex;
+  flex-basis: 20%;
+  justify-content: space-evenly;
+  align-items: center;
+  cursor: pointer;
 }

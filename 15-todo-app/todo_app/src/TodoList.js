@@ -93,7 +93,7 @@ export default class TodoList extends Component {
             A Simple React Todo List App
           </h2>
         </header>
-        <div>
+        <div className="TodoList__todos">
           {this.state.todos.length > 0 ? (
             this.renderTodos()
           ) : (
