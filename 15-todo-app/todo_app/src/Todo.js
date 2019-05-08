@@ -39,15 +39,15 @@ export default class Todo extends Component {
   }
   renderEditingTodo() {
     return (
-      <form className="Todo__form" onSubmit={this.handleSubmit}>
+      <form className="Todo-form" onSubmit={this.handleSubmit}>
         <input
           type="text"
           name="text"
           value={this.state.text}
           onChange={this.handleChange}
-          className="Todo__form__input"
+          className="Todo-form__input"
         />
-        <button className="Todo__form__button">SAVE</button>
+        <button className="Todo-form__button">SAVE</button>
       </form>
     );
   }

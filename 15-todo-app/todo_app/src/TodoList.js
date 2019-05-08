@@ -100,9 +100,7 @@ export default class TodoList extends Component {
             <p>There is no todo.</p>
           )}
         </div>
-        <div>
-          <NewTodoForm addTodo={this.addTodo} />
-        </div>
+        <NewTodoForm addTodo={this.addTodo} />
       </section>
     );
   }
