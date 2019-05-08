@@ -5,8 +5,10 @@ import NewTodoForm from "./NewTodoForm";
 export default class TodoList extends Component {
   constructor() {
     super();
+
+    const todosJSON = localStorage.getItem("todos");
     this.state = {
-      todos: []
+      todos: todosJSON ? JSON.parse(todosJSON) : []
     };
 
     this.addTodo = this.addTodo.bind(this);
@@ -17,16 +19,25 @@ export default class TodoList extends Component {
   }
   addTodo(todo) {
     const newTodo = { ...todo, edit: false, done: false };
+
     this.setState(state => {
+      const newTodos = [...state.todos, newTodo];
+
+      localStorage.setItem("todos", JSON.stringify(newTodos));
+
       return {
-        todos: [...state.todos, newTodo]
+        todos: newTodos
       };
     });
   }
   deleteTodo(id) {
     this.setState(state => {
+      const newTodos = state.todos.filter(todo => todo.id !== id);
+
+      localStorage.setItem("todos", JSON.stringify(newTodos));
+
       return {
-        todos: state.todos.filter(todo => todo.id !== id)
+        todos: newTodos
       };
     });
   }
@@ -43,6 +54,8 @@ export default class TodoList extends Component {
       const currentTodo = state.todos.find(todo => todo.id === id);
       currentTodo.text = text;
       currentTodo.edit = false;
+
+      localStorage.setItem("todos", JSON.stringify(state.todos));
 
       return state;
     });
