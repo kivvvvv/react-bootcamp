@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Todo from "./Todo";
 import NewTodoForm from "./NewTodoForm";
+import "./TodoList.css";
 
 export default class TodoList extends Component {
   constructor() {
@@ -85,10 +86,12 @@ export default class TodoList extends Component {
   }
   render() {
     return (
-      <section>
-        <header>
-          <h1>Todo List!</h1>
-          <h2>A Simple React Todo List App</h2>
+      <section className="TodoList">
+        <header className="TodoList__header">
+          <h1 className="TodoList__header__main">Todo List!</h1>
+          <h2 className="TodoList__header__sub">
+            A Simple React Todo List App
+          </h2>
         </header>
         <div>
           {this.state.todos.length > 0 ? (

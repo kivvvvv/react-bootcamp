@@ -1,0 +1,26 @@
+.TodoList {
+  margin-top: 25px;
+  min-width: 35vw;
+  background: #fc5c65;
+  color: white
+}
+
+.TodoList__header {
+  margin: 15px 35px 10px;
+  border-bottom: 1px solid #fab1a0;
+  padding-bottom: 10px;
+}
+
+.TodoList__header__main {
+  font-size: 3rem;
+}
+
+.TodoList__header__sub {
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.TodoList__header > * {
+  font-weight: 350;
+  margin: 0;
+}
