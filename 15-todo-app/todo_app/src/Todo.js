@@ -52,17 +52,13 @@ export default class Todo extends Component {
     );
   }
   renderTodoItemText() {
-    if (this.props.done)
-      return (
-        <p
-          className="Todo__item__text Todo__item__text--done"
-          onClick={this.handleClick}
-        >
-          {this.props.text}
-        </p>
-      );
     return (
-      <p className="Todo__item__text" onClick={this.handleClick}>
+      <p
+        className={`Todo__item__text${
+          this.props.done ? " Todo__item__text--done" : ""
+        }`}
+        onClick={this.handleClick}
+      >
         {this.props.text}
       </p>
     );
