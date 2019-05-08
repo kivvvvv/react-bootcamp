@@ -1,11 +1,12 @@
 .Todo {
   margin-bottom: 5px;
   background: #f97575;
+  padding: 0 40px;
 }
 
 .Todo__item {
   display: flex;
-  padding: 20px 40px;
+  padding: 20px 0;
   font-size: 1.2rem;
 }
 

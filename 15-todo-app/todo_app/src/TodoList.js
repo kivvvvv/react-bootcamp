@@ -99,7 +99,7 @@ export default class TodoList extends Component {
           {this.state.todos.length > 0 ? (
             this.renderTodos()
           ) : (
-            <p>There is no todo.</p>
+            <p className="Todo">There is no todo.</p>
           )}
         </div>
         <NewTodoForm addTodo={this.addTodo} />
