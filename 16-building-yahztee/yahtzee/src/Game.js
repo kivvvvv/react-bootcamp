@@ -7,6 +7,24 @@ const NUM_DICE = 5;
 const NUM_ROLLS = 3;
 
 class Game extends Component {
+  static defaultProps = {
+    desc: {
+      ones: "1 point per 1",
+      twos: "2 point per 2",
+      threes: "3 point per 3",
+      fours: "4 point per 4",
+      fives: "5 point per 5",
+      sixes: "6 point per 6",
+      threeOfKind: "Sum of all dice if 3 are the same",
+      fourOfKind: "Sum of all dice if 4 are the same",
+      fullHouse: "25 points for a full house",
+      smallStraight: "30 points for a small straight",
+      largeStraight: "40 points for a large straight",
+      yahtzee: "50 points for yahtzee",
+      chance: "Sum of all dice"
+    }
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -91,7 +109,11 @@ class Game extends Component {
             </div>
           </section>
         </header>
-        <ScoreTable doScore={this.doScore} scores={this.state.scores} />
+        <ScoreTable
+          doScore={this.doScore}
+          scores={this.state.scores}
+          desc={this.props.desc}
+        />
       </div>
     );
   }

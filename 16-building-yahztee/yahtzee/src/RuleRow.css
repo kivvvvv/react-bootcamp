@@ -44,6 +44,10 @@
   text-align: left;
 }
 
+.RuleRow-desc {
+  text-align: right;
+}
+
 .RuleRow-score {
   width: 50%;
   text-align: right;
