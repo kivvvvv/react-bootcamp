@@ -36,10 +36,19 @@ export default class Deck extends Component {
       })
       .then(
         function onFulfilledJSON(json) {
-          // console.log(json);
+          console.log(json);
+          const cardInfo = json.cards[0];
+
           this.setState(state => {
             return {
-              cardImgs: [...state.cardImgs, json.cards[0].image]
+              cardImgs: [
+                ...state.cardImgs,
+                {
+                  cardUrl: cardInfo.image,
+                  cardSuit: cardInfo.suit,
+                  cardValue: cardInfo.value
+                }
+              ]
             };
           });
         }.bind(this)
@@ -53,7 +62,13 @@ export default class Deck extends Component {
       <div>
         <button onClick={this.shuffleCard}>GIMME A CARD!</button>
         {this.state.cardImgs.length > 0
-          ? this.state.cardImgs.map(card => <Card imgSrc={card} />)
+          ? this.state.cardImgs.map(card => (
+              <Card
+                key={`${card.cardValue}-OF-${card.cardSuit}`}
+                alt={`${card.cardValue} of ${card.cardSuit}`}
+                imgSrc={card.cardUrl}
+              />
+            ))
           : null}
       </div>
     );
