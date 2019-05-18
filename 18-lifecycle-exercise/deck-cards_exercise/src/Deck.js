@@ -6,7 +6,8 @@ export default class Deck extends Component {
     super();
     this.state = {
       deck_id: "",
-      cardImgs: []
+      cardImgs: [],
+      remaining: 52
     };
     this.shuffleCard = this.shuffleCard.bind(this);
   }
@@ -26,36 +27,41 @@ export default class Deck extends Component {
       });
   }
   shuffleCard() {
-    const cardUrl = `https://deckofcardsapi.com/api/deck/${
-      this.state.deck_id
-    }/draw/`;
+    if (this.state.remaining === 0) {
+      alert("Error: no cards remaining!");
+    } else {
+      const cardUrl = `https://deckofcardsapi.com/api/deck/${
+        this.state.deck_id
+      }/draw/`;
 
-    fetch(cardUrl)
-      .then(function onFulfilled(response) {
-        return response.json();
-      })
-      .then(
-        function onFulfilledJSON(json) {
-          console.log(json);
-          const cardInfo = json.cards[0];
+      fetch(cardUrl)
+        .then(function onFulfilled(response) {
+          return response.json();
+        })
+        .then(
+          function onFulfilledJSON(json) {
+            // console.log(json);
+            const cardInfo = json.cards[0];
 
-          this.setState(state => {
-            return {
-              cardImgs: [
-                ...state.cardImgs,
-                {
-                  cardUrl: cardInfo.image,
-                  cardSuit: cardInfo.suit,
-                  cardValue: cardInfo.value
-                }
-              ]
-            };
-          });
-        }.bind(this)
-      )
-      .catch(function onRejected(reason) {
-        console.log(reason);
-      });
+            this.setState(state => {
+              return {
+                remaining: json.remaining,
+                cardImgs: [
+                  ...state.cardImgs,
+                  {
+                    cardUrl: cardInfo.image,
+                    cardSuit: cardInfo.suit,
+                    cardValue: cardInfo.value
+                  }
+                ]
+              };
+            });
+          }.bind(this)
+        )
+        .catch(function onRejected(reason) {
+          console.log(reason);
+        });
+    }
   }
   render() {
     return (
