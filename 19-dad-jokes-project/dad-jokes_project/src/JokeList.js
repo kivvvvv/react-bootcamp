@@ -10,6 +10,7 @@ export default class JokeList extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoaded: false,
       jokes: []
     };
     this.upvoteJoke = this.upvoteJoke.bind(this);
@@ -67,27 +68,33 @@ export default class JokeList extends Component {
               jokes: [
                 ...state.jokes,
                 ...jokes.map(joke => ({ ...joke, totalVote: 0 }))
-              ]
+              ],
+              isLoaded: true
             };
           });
         }.bind(this)
       );
   }
+  renderJokes() {
+    return (
+      <ul>
+        {this.state.jokes.map(joke => (
+          <Joke
+            key={joke.id}
+            jokeId={joke.id}
+            totalVote={joke.totalVote}
+            jokeMsg={joke.joke}
+            upvoteJoke={this.upvoteJoke}
+            downvoteJoke={this.downvoteJoke}
+          />
+        ))}
+      </ul>
+    );
+  }
   render() {
     return (
       <div>
-        <ul>
-          {this.state.jokes.map(joke => (
-            <Joke
-              key={joke.id}
-              jokeId={joke.id}
-              totalVote={joke.totalVote}
-              jokeMsg={joke.joke}
-              upvoteJoke={this.upvoteJoke}
-              downvoteJoke={this.downvoteJoke}
-            />
-          ))}
-        </ul>
+        {this.state.isLoaded ? this.renderJokes() : <h1>LOADING...</h1>}
       </div>
     );
   }
