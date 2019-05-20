@@ -23,14 +23,38 @@ export default class JokeList extends Component {
     return response.json();
   }
   getJokes() {
-    return Promise.all(
-      Array.from({ length: this.props.totalJokes }).map(this.getJokeJSON)
+    return new Promise(
+      function(resolve, reject) {
+        const jokesJSON = localStorage.getItem("jokes");
+        try {
+          jokesJSON
+            ? resolve(JSON.parse(jokesJSON))
+            : resolve(
+                Promise.all(
+                  Array.from({ length: this.props.totalJokes }).map(
+                    this.getJokeJSON
+                  )
+                )
+              );
+        } catch (error) {
+          reject(error);
+        }
+      }.bind(this)
     );
   }
   upvoteJoke(id) {
     this.setState(state => {
       const currentJoke = state.jokes.find(joke => joke.id === id);
       if (currentJoke) currentJoke.totalVote++;
+
+      state.jokes.sort((a, b) => {
+        if (a.totalVote < b.totalVote) return 1;
+        if (a.totalVote > b.totalVote) return -1;
+        return 0;
+      });
+
+      localStorage.setItem("jokes", JSON.stringify(state.jokes));
+
       return state;
     });
   }
@@ -38,6 +62,15 @@ export default class JokeList extends Component {
     this.setState(state => {
       const currentJoke = state.jokes.find(joke => joke.id === id);
       if (currentJoke) currentJoke.totalVote--;
+
+      state.jokes.sort((a, b) => {
+        if (a.totalVote < b.totalVote) return 1;
+        if (a.totalVote > b.totalVote) return -1;
+        return 0;
+      });
+
+      localStorage.setItem("jokes", JSON.stringify(state.jokes));
+
       return state;
     });
   }
@@ -62,15 +95,22 @@ export default class JokeList extends Component {
         }.bind(this)
       )
       .then(
-        function onFulfilledJokes(jokes) {
+        function onFulfilledUniqueJokes(uniqueJokes) {
           this.setState(state => {
-            return {
+            const newState = {
               jokes: [
                 ...state.jokes,
-                ...jokes.map(joke => ({ ...joke, totalVote: 0 }))
+                ...uniqueJokes.map(joke => ({
+                  ...joke,
+                  totalVote: joke.totalVote ? joke.totalVote : 0
+                }))
               ],
               isLoaded: true
             };
+
+            localStorage.setItem("jokes", JSON.stringify(newState.jokes));
+
+            return newState;
           });
         }.bind(this)
       );
@@ -78,22 +118,16 @@ export default class JokeList extends Component {
   renderJokes() {
     return (
       <ul>
-        {this.state.jokes
-          .sort((a, b) => {
-            if (a.totalVote < b.totalVote) return 1;
-            if (a.totalVote > b.totalVote) return -1;
-            return 0;
-          })
-          .map(joke => (
-            <Joke
-              key={joke.id}
-              jokeId={joke.id}
-              totalVote={joke.totalVote}
-              jokeMsg={joke.joke}
-              upvoteJoke={this.upvoteJoke}
-              downvoteJoke={this.downvoteJoke}
-            />
-          ))}
+        {this.state.jokes.map(joke => (
+          <Joke
+            key={joke.id}
+            jokeId={joke.id}
+            totalVote={joke.totalVote}
+            jokeMsg={joke.joke}
+            upvoteJoke={this.upvoteJoke}
+            downvoteJoke={this.downvoteJoke}
+          />
+        ))}
       </ul>
     );
   }
