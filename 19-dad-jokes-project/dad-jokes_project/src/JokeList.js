@@ -16,32 +16,6 @@ export default class JokeList extends Component {
     this.upvoteJoke = this.upvoteJoke.bind(this);
     this.downvoteJoke = this.downvoteJoke.bind(this);
   }
-  async getJokeJSON() {
-    const response = await fetch(JOKE_API, {
-      headers: { Accept: "application/json" }
-    });
-    return response.json();
-  }
-  getJokes() {
-    return new Promise(
-      function(resolve, reject) {
-        const jokesJSON = localStorage.getItem("jokes");
-        try {
-          jokesJSON
-            ? resolve(JSON.parse(jokesJSON))
-            : resolve(
-                Promise.all(
-                  Array.from({ length: this.props.totalJokes }).map(
-                    this.getJokeJSON
-                  )
-                )
-              );
-        } catch (error) {
-          reject(error);
-        }
-      }.bind(this)
-    );
-  }
   upvoteJoke(id) {
     this.setState(state => {
       const currentJoke = state.jokes.find(joke => joke.id === id);
@@ -74,24 +48,54 @@ export default class JokeList extends Component {
       return state;
     });
   }
+  async getJokeJSON() {
+    const response = await fetch(JOKE_API, {
+      headers: { Accept: "application/json" }
+    });
+    return response.json();
+  }
+  getJokes() {
+    return Promise.all(
+      Array.from({ length: this.props.totalJokes }).map(this.getJokeJSON)
+    );
+  }
+  async getUniqueJokes(jokes) {
+    const oldJokes = [...jokes];
+    const uniqueJokeIds = new Set();
+    oldJokes.forEach(joke => uniqueJokeIds.add(joke.id));
+
+    while (uniqueJokeIds.size < this.props.totalJokes) {
+      const newJoke = await this.getJokeJSON();
+
+      uniqueJokeIds.add(newJoke.id);
+      oldJokes.push(newJoke);
+    }
+
+    return Array.from(uniqueJokeIds.values()).map(jokeId =>
+      oldJokes.find(joke => joke.id === jokeId)
+    );
+  }
   componentDidMount() {
-    this.getJokes()
-      .then(
-        async function onFulfilledJokes(jokes) {
-          const oldJokes = [...jokes];
-          const uniqueJokeIds = new Set();
-          oldJokes.forEach(joke => uniqueJokeIds.add(joke.id));
+    new Promise(
+      function(resolve, reject) {
+        let jokes;
+        const jokesJSON = localStorage.getItem("jokes");
 
-          while (uniqueJokeIds.size < this.props.totalJokes) {
-            const newJoke = await this.getJokeJSON();
-
-            uniqueJokeIds.add(newJoke.id);
-            oldJokes.push(newJoke);
+        if (jokesJSON) {
+          try {
+            jokes = JSON.parse(jokesJSON);
+            resolve(jokes);
+          } catch (error) {
+            reject(error);
           }
-
-          return Array.from(uniqueJokeIds.values()).map(jokeId =>
-            oldJokes.find(joke => joke.id === jokeId)
-          );
+        } else {
+          resolve(this.getJokes());
+        }
+      }.bind(this)
+    )
+      .then(
+        function onFulfilledJokes(jokes) {
+          return this.getUniqueJokes(jokes);
         }.bind(this)
       )
       .then(
@@ -113,7 +117,11 @@ export default class JokeList extends Component {
             return newState;
           });
         }.bind(this)
-      );
+      )
+      .catch(function onRejected(reason) {
+        console.log(reason);
+        alert(reason);
+      });
   }
   renderJokes() {
     return (
@@ -134,6 +142,7 @@ export default class JokeList extends Component {
   render() {
     return (
       <div>
+        <button>More jokes</button>
         {this.state.isLoaded ? this.renderJokes() : <h1>LOADING...</h1>}
       </div>
     );
