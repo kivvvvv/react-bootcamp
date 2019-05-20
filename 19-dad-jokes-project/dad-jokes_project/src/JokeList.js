@@ -4,17 +4,53 @@ import Joke from "./Joke";
 const JOKE_API = "https://icanhazdadjoke.com/";
 
 export default class JokeList extends Component {
-  static defaultProps = {
-    totalJokes: 10
-  };
   constructor(props) {
     super(props);
     this.state = {
+      totalJokes: 10,
       isLoaded: false,
       jokes: []
     };
     this.upvoteJoke = this.upvoteJoke.bind(this);
     this.downvoteJoke = this.downvoteJoke.bind(this);
+    this.addJokes = this.addJokes.bind(this);
+  }
+  addJokes() {
+    this.setState(
+      state => {
+        return {
+          totalJokes: state.totalJokes + 10,
+          isLoaded: false
+        };
+      },
+      () => {
+        new Promise(
+          async function(resolve) {
+            const newJokes = await this.getUniqueJokes(this.state.jokes);
+            resolve(newJokes);
+          }.bind(this)
+        )
+          .then(
+            function onFulfilledNewJokes(newJokes) {
+              this.setState({
+                jokes: [
+                  ...newJokes.map(joke => ({
+                    ...joke,
+                    totalVote: joke.totalVote ? joke.totalVote : 0
+                  }))
+                ],
+                isLoaded: true
+              });
+
+              localStorage.setItem("jokes", JSON.stringify(newJokes));
+            }.bind(this)
+          )
+          .catch(function onRejected(reason) {
+            console.log(reason);
+            alert(reason);
+          });
+      }
+    );
   }
   upvoteJoke(id) {
     this.setState(state => {
@@ -56,7 +92,7 @@ export default class JokeList extends Component {
   }
   getJokes() {
     return Promise.all(
-      Array.from({ length: this.props.totalJokes }).map(this.getJokeJSON)
+      Array.from({ length: this.state.totalJokes }).map(this.getJokeJSON)
     );
   }
   async getUniqueJokes(jokes) {
@@ -64,7 +100,7 @@ export default class JokeList extends Component {
     const uniqueJokeIds = new Set();
     oldJokes.forEach(joke => uniqueJokeIds.add(joke.id));
 
-    while (uniqueJokeIds.size < this.props.totalJokes) {
+    while (uniqueJokeIds.size < this.state.totalJokes) {
       const newJoke = await this.getJokeJSON();
 
       uniqueJokeIds.add(newJoke.id);
@@ -142,7 +178,7 @@ export default class JokeList extends Component {
   render() {
     return (
       <div>
-        <button>More jokes</button>
+        <button onClick={this.addJokes}>More jokes</button>
         {this.state.isLoaded ? this.renderJokes() : <h1>LOADING...</h1>}
       </div>
     );
