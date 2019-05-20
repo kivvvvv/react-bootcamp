@@ -78,16 +78,22 @@ export default class JokeList extends Component {
   renderJokes() {
     return (
       <ul>
-        {this.state.jokes.map(joke => (
-          <Joke
-            key={joke.id}
-            jokeId={joke.id}
-            totalVote={joke.totalVote}
-            jokeMsg={joke.joke}
-            upvoteJoke={this.upvoteJoke}
-            downvoteJoke={this.downvoteJoke}
-          />
-        ))}
+        {this.state.jokes
+          .sort((a, b) => {
+            if (a.totalVote < b.totalVote) return 1;
+            if (a.totalVote > b.totalVote) return -1;
+            return 0;
+          })
+          .map(joke => (
+            <Joke
+              key={joke.id}
+              jokeId={joke.id}
+              totalVote={joke.totalVote}
+              jokeMsg={joke.joke}
+              upvoteJoke={this.upvoteJoke}
+              downvoteJoke={this.downvoteJoke}
+            />
+          ))}
       </ul>
     );
   }
