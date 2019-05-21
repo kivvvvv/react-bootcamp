@@ -4,10 +4,12 @@ import Joke from "./Joke";
 const JOKE_API = "https://icanhazdadjoke.com/";
 
 export default class JokeList extends Component {
+  static defaultProps = {
+    nJoke: 10
+  };
   constructor(props) {
     super(props);
     this.state = {
-      totalJokes: 10,
       isLoaded: false,
       jokes: []
     };
@@ -16,41 +18,37 @@ export default class JokeList extends Component {
     this.addJokes = this.addJokes.bind(this);
   }
   addJokes() {
-    this.setState(
-      state => {
-        return {
-          totalJokes: state.totalJokes + 10,
-          isLoaded: false
-        };
-      },
-      () => {
-        new Promise(
-          async function(resolve) {
-            const newJokes = await this.getUniqueJokes(this.state.jokes);
-            resolve(newJokes);
+    this.setState({ isLoaded: false }, () => {
+      Promise.resolve(this.getJokes())
+        .then(
+          async function onFulfilledNewJokes(newJokes) {
+            const uniqueJokes = await this.getUniqueJokes([
+              ...this.state.jokes,
+              ...newJokes
+            ]);
+            return uniqueJokes;
           }.bind(this)
         )
-          .then(
-            function onFulfilledNewJokes(newJokes) {
-              this.setState({
-                jokes: [
-                  ...newJokes.map(joke => ({
-                    ...joke,
-                    totalVote: joke.totalVote ? joke.totalVote : 0
-                  }))
-                ],
-                isLoaded: true
-              });
+        .then(
+          function onFulfilledUniqueJokes(uniqueJokes) {
+            this.setState({
+              jokes: [
+                ...uniqueJokes.map(joke => ({
+                  ...joke,
+                  totalVote: joke.totalVote ? joke.totalVote : 0
+                }))
+              ],
+              isLoaded: true
+            });
 
-              localStorage.setItem("jokes", JSON.stringify(newJokes));
-            }.bind(this)
-          )
-          .catch(function onRejected(reason) {
-            console.log(reason);
-            alert(reason);
-          });
-      }
-    );
+            localStorage.setItem("jokes", JSON.stringify(uniqueJokes));
+          }.bind(this)
+        )
+        .catch(function onRejected(reason) {
+          console.log(reason);
+          alert(reason);
+        });
+    });
   }
   upvoteJoke(id) {
     this.setState(state => {
@@ -92,23 +90,23 @@ export default class JokeList extends Component {
   }
   getJokes() {
     return Promise.all(
-      Array.from({ length: this.state.totalJokes }).map(this.getJokeJSON)
+      Array.from({ length: this.props.nJoke }).map(this.getJokeJSON)
     );
   }
   async getUniqueJokes(jokes) {
-    const oldJokes = [...jokes];
+    const currentJokes = [...jokes];
     const uniqueJokeIds = new Set();
-    oldJokes.forEach(joke => uniqueJokeIds.add(joke.id));
+    currentJokes.forEach(joke => uniqueJokeIds.add(joke.id));
 
-    while (uniqueJokeIds.size < this.state.totalJokes) {
+    while (uniqueJokeIds.size < jokes.length) {
       const newJoke = await this.getJokeJSON();
 
       uniqueJokeIds.add(newJoke.id);
-      oldJokes.push(newJoke);
+      currentJokes.push(newJoke);
     }
 
     return Array.from(uniqueJokeIds.values()).map(jokeId =>
-      oldJokes.find(joke => joke.id === jokeId)
+      currentJokes.find(joke => joke.id === jokeId)
     );
   }
   componentDidMount() {
