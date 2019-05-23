@@ -10,7 +10,7 @@ export default class NavBar extends Component {
   render() {
     return (
       <div>
-        <nav class="NavBar">
+        <nav className="NavBar">
           <NavLink
             className="NavBar__link"
             activeClassName="NavBar__link--active"
