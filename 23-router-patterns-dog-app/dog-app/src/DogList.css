@@ -1,0 +1,16 @@
+.DogList__header, .DogList__figure__name {
+  text-align: center;
+}
+
+.DogList__lists {
+  display: flex;
+  justify-content: center;
+}
+
+.DogList__figure__img-container {
+  height: 35vh;
+}
+
+.DogList__figure__img-container > img {
+  height: 100%;
+}
