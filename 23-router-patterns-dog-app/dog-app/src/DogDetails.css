@@ -1,0 +1,13 @@
+.DogDetails {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.DogDetails__img-container {
+  height: 35vh;
+}
+
+.DogDetails__img-container > img {
+  height: 100%;
+}
