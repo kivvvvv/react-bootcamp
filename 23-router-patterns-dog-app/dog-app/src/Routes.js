@@ -6,7 +6,6 @@ import DogDetails from "./DogDetails";
 export default class Routes extends Component {
   render() {
     const dogsProps = this.props.routesInfoProps.dogs;
-    console.log(dogsProps);
 
     let matchedDogDetailsComponent = ({ match }) => {
       const paramsName = match.params.name;

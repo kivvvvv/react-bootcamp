@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+import uuid from "uuid/v4";
 
 export default class Navbar extends Component {
   render() {
@@ -9,7 +10,7 @@ export default class Navbar extends Component {
       <nav>
         <ul>
           {dogsProps.map(dog => (
-            <li>
+            <li key={uuid()}>
               <NavLink to={`/dogs/${dog.name}`}>{dog.name}</NavLink>
             </li>
           ))}

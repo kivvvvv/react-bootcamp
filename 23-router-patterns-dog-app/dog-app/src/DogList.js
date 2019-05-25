@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import uuid from "uuid/v4";
 
 export default class DogList extends Component {
   render() {
@@ -10,7 +11,7 @@ export default class DogList extends Component {
         <h1>Click a Dog!</h1>
         <div className="DogList__lists">
           {dogs.map(dog => (
-            <figure className="DogList__figure">
+            <figure key={uuid()} className="DogList__figure">
               <div className="DogList__figure__img">
                 <img alt={`a dog name ${dog.name}`} src={dog.src} />
               </div>
