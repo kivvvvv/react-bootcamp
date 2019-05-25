@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 export default class DogDetails extends Component {
   render() {
-    console.log("DogDetails.js: ", this.props);
     const { name, age, src, facts } = this.props;
     return (
       <div className="DogDetails">

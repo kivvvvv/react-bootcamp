@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 export default class DogList extends Component {
   render() {
-    console.log("DogList.js: ", this.props);
     const { dogs } = this.props;
 
     return (

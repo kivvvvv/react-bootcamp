@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter } from "react-router-dom";
 import Routes from "./Routes";
+import Navbar from "./Navbar";
 
 import whiskey from "./whiskey.jpg";
 import hazel from "./hazel.jpg";
@@ -44,6 +45,7 @@ export default class App extends Component {
   render() {
     return (
       <BrowserRouter>
+        <Navbar routesInfoProps={this.props} />
         <Routes routesInfoProps={this.props} />
       </BrowserRouter>
     );
