@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter } from "react-router-dom";
-import DogList from "./DogList";
+import Routes from "./Routes";
 
 import whiskey from "./whiskey.jpg";
 import hazel from "./hazel.jpg";
@@ -44,7 +44,7 @@ export default class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <DogList dogs={this.props.dogs} />
+        <Routes routesInfoProps={this.props} />
       </BrowserRouter>
     );
   }
