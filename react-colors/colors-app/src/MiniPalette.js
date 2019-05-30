@@ -18,7 +18,8 @@ const styles = {
     height: "150px",
     width: "100%",
     borderRadius: '5px',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    fontSize: '0'
   },
   title: {
     display: "flex",
@@ -40,7 +41,6 @@ const styles = {
     display: "inline-block",
     margin: "0 auto",
     position: "relative",
-    marginBottom: "-3.5px"
   }
 };
 
