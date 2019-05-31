@@ -73,21 +73,41 @@ const styles = theme => ({
 });
 
 class NewPaletteForm extends Component {
-  state = {
-    open: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      currentColor: "teal",
+      colors: ["purple", "#e15764"]
+    };
 
-  handleDrawerOpen = () => {
+    this.updateCurrentColor = this.updateCurrentColor.bind(this);
+    this.addNewColor = this.addNewColor.bind(this);
+  }
+
+  drawerOpen = () => {
     this.setState({ open: true });
   };
 
-  handleDrawerClose = () => {
+  drawerClose = () => {
     this.setState({ open: false });
   };
 
+  updateCurrentColor(newColor) {
+    this.setState({ currentColor: newColor.hex });
+  }
+
+  addNewColor() {
+    this.setState(prevState => {
+      return {
+        colors: [...prevState.colors, this.state.currentColor]
+      };
+    });
+  }
+
   render() {
     const { classes } = this.props;
-    const { open } = this.state;
+    const { open, currentColor, colors } = this.state;
 
     return (
       <div className={classes.root}>
@@ -102,7 +122,7 @@ class NewPaletteForm extends Component {
             <IconButton
               color="inherit"
               aria-label="Open drawer"
-              onClick={this.handleDrawerOpen}
+              onClick={this.drawerOpen}
               className={classNames(classes.menuButton, open && classes.hide)}
             >
               <MenuIcon />
@@ -122,7 +142,7 @@ class NewPaletteForm extends Component {
           }}
         >
           <div className={classes.drawerHeader}>
-            <IconButton onClick={this.handleDrawerClose}>
+            <IconButton onClick={this.drawerClose}>
               <ChevronLeftIcon />
             </IconButton>
           </div>
@@ -137,10 +157,15 @@ class NewPaletteForm extends Component {
             </Button>
           </div>
           <ChromePicker
-            color="purple"
-            onChangeComplete={newColor => console.log(newColor)}
+            color={currentColor}
+            onChangeComplete={this.updateCurrentColor}
           />
-          <Button variant="contained" color="primary">
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ background: currentColor }}
+            onClick={this.addNewColor}
+          >
             Add Color
           </Button>
         </Drawer>
@@ -150,6 +175,11 @@ class NewPaletteForm extends Component {
           })}
         >
           <div className={classes.drawerHeader} />
+          <ul>
+            {colors.map(color => (
+              <li style={{ background: color }}>{color}</li>
+            ))}
+          </ul>
         </main>
       </div>
     );
