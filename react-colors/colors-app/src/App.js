@@ -42,7 +42,11 @@ export default class App extends Component {
           exact
           path="/palette/new"
           render={({ history }) => (
-            <NewPaletteForm savePalette={this.savePalette} history={history} />
+            <NewPaletteForm
+              savePalette={this.savePalette}
+              history={history}
+              palettes={this.state.palettes}
+            />
           )}
         />
         <Route
