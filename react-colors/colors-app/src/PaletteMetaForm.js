@@ -6,18 +6,19 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { Picker } from "emoji-mart";
+
+import "emoji-mart/css/emoji-mart.css";
 
 export default class PaletteMetaForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      open: true,
       newPaletteName: ""
     };
 
-    this.handleClickOpen = this.handleClickOpen.bind(this);
-    this.handleClose = this.handleClose.bind(this);
     this.inputTextChange = this.inputTextChange.bind(this);
+    this.handleHideForm = this.handleHideForm.bind(this);
   }
 
   componentDidMount() {
@@ -36,26 +37,18 @@ export default class PaletteMetaForm extends Component {
     });
   }
 
-  handleClickOpen() {
-    this.setState({
-      open: true
-    });
-  }
-
-  handleClose() {
-    this.setState({
-      open: false
-    });
+  handleHideForm() {
+    this.props.hideForm();
   }
 
   render() {
-    const { open, newPaletteName } = this.state;
-    const { handleSavePalette } = this.props;
+    const { newPaletteName } = this.state;
+    const { formShowing, handleSavePalette } = this.props;
 
     return (
       <Dialog
-        open={open}
-        onClose={this.handleClose}
+        open={formShowing}
+        onClose={this.handleHideForm}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Choose a Palette Name</DialogTitle>
@@ -66,6 +59,7 @@ export default class PaletteMetaForm extends Component {
               <br />
               Make sure it's unique!
             </DialogContentText>
+            <Picker />
             <TextValidator
               fullWidth
               label="Palette Name"
@@ -77,7 +71,7 @@ export default class PaletteMetaForm extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.handleHideForm} color="primary">
               Cancel
             </Button>
             <Button variant="contained" color="primary" type="submit">

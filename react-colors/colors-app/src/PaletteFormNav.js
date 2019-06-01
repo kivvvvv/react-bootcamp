@@ -61,6 +61,7 @@ class PaletteFormNav extends Component {
     };
     this.inputTextChange = this.inputTextChange.bind(this);
     this.showForm = this.showForm.bind(this);
+    this.hideForm = this.hideForm.bind(this);
   }
 
   inputTextChange(e) {
@@ -74,6 +75,12 @@ class PaletteFormNav extends Component {
   showForm() {
     this.setState({
       formShowing: true
+    });
+  }
+
+  hideForm() {
+    this.setState({
+      formShowing: false
     });
   }
 
@@ -133,8 +140,10 @@ class PaletteFormNav extends Component {
         </AppBar>
         {formShowing && (
           <PaletteMetaForm
+            formShowing={formShowing}
             palettes={palettes}
             handleSavePalette={handleSavePalette}
+            hideForm={this.hideForm}
           />
         )}
       </div>
