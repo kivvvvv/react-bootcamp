@@ -140,7 +140,6 @@ class PaletteFormNav extends Component {
         </AppBar>
         {formShowing && (
           <PaletteMetaForm
-            formShowing={formShowing}
             palettes={palettes}
             handleSavePalette={handleSavePalette}
             hideForm={this.hideForm}

@@ -111,10 +111,10 @@ class NewPaletteForm extends Component {
     });
   }
 
-  handleSavePalette(newPaletteName) {
+  handleSavePalette(palette) {
     const newPalette = {
-      id: newPaletteName.toLowerCase().replace(/ /g, "-"),
-      paletteName: newPaletteName,
+      ...palette,
+      id: palette.paletteName.toLowerCase().replace(/ /g, "-"),
       colors: this.state.colors
     };
     this.props.savePalette(newPalette);
