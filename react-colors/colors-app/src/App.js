@@ -10,9 +10,10 @@ import NewPaletteForm from "./NewPaletteForm";
 export default class App extends Component {
   constructor() {
     super();
-    this.state = {
-      palettes: seedColors
-    };
+
+    const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
+    this.state = { palettes: savedPalettes || seedColors };
+
     this.savePalette = this.savePalette.bind(this);
   }
 
@@ -25,7 +26,15 @@ export default class App extends Component {
       return {
         palettes: [...prevState.palettes, newPalette]
       };
-    });
+    }, this.syncLocalStorage);
+  }
+
+  syncLocalStorage() {
+    //save palettes to local storage
+    window.localStorage.setItem(
+      "palettes",
+      JSON.stringify(this.state.palettes)
+    );
   }
 
   render() {
