@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PaletteMetaForm from "./PaletteMetaForm";
 import classNames from "classnames";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -10,6 +9,8 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+
+import PaletteMetaForm from "./PaletteMetaForm";
 
 import styles from "./styles/PaletteFormNavStyles";
 
