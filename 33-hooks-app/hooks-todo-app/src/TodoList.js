@@ -11,7 +11,7 @@ export default function TodoList() {
 
   const [newTodo, setNewTodo] = useState("");
 
-  const handleUpdateChange = e => {
+  const handleTextChange = e => {
     setNewTodo(e.target.value);
   };
 
@@ -23,6 +23,12 @@ export default function TodoList() {
     setTodos(todos.filter(todo => todo.id !== id));
   };
 
+  const handleSaveClick = (id, editText) => {
+    const prevTodos = [...todos];
+    prevTodos.find(todo => todo.id === id).todoText = editText;
+    setTodos(prevTodos);
+  };
+
   return (
     <div>
       <div>
@@ -32,15 +38,16 @@ export default function TodoList() {
               <Todo
                 key={todo.id}
                 id={todo.id}
-                onDelete={handleDeleteClick}
                 todoText={todo.todoText}
+                onDelete={handleDeleteClick}
+                onSave={handleSaveClick}
               />
             );
           })}
         </ul>
       </div>
       <div>
-        <input type="text" onChange={handleUpdateChange} />
+        <input type="text" onChange={handleTextChange} />
         <button onClick={handleAddClick}>ADD</button>
       </div>
     </div>
