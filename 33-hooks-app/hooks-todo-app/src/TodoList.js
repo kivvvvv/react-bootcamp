@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import uuid from "uuid/v4";
+
 import Todo from "./Todo";
 
 export default function TodoList() {
   const [todos, setTodos] = useState([
-    { todoText: "something" },
-    { todoText: "someday" }
+    { id: uuid(), todoText: "something" },
+    { id: uuid(), todoText: "someday" }
   ]);
 
   const updateTodos = e => {
@@ -14,11 +16,23 @@ export default function TodoList() {
 
     setTodos(newTodos);
   };
+
+  const handleDeleteClick = id => {
+    setTodos(todos.filter(todo => todo.id !== id));
+  };
+
   return (
     <div>
       <ul>
         {todos.map(todo => {
-          return <Todo todoText={todo.todoText} />;
+          return (
+            <Todo
+              key={todo.id}
+              id={todo.id}
+              onDelete={handleDeleteClick}
+              todoText={todo.todoText}
+            />
+          );
         })}
       </ul>
       <input type="text" onChange={updateTodos} />
