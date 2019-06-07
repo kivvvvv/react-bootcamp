@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useContext } from "react";
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import LockOutlined from "@material-ui/icons/LockOutlined";
@@ -37,52 +37,49 @@ const words = {
   }
 };
 
-class Form extends Component {
-  static contextType = LanguageContext;
+function Form(props) {
+  const { language, changeLanguage } = useContext(LanguageContext);
+  const { classes } = props;
+  const { signIn, email, password, remember } = words[language];
 
-  render() {
-    const { language, changeLanguage } = this.context;
-    const { classes } = this.props;
-    const { signIn, email, password, remember } = words[language];
-    return (
-      <main className={classes.main}>
-        <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlined />
-          </Avatar>
-          <Typography variant="h5">{signIn}</Typography>
-          <Select value={language} onChange={changeLanguage}>
-            <MenuItem value="english">English</MenuItem>
-            <MenuItem value="french">French</MenuItem>
-            <MenuItem value="spanish">Spanish</MenuItem>
-          </Select>
-          <form className={classes.form}>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="email">{email}</InputLabel>
-              <Input id="email" name="email" autoFocus />
-            </FormControl>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">{password}</InputLabel>
-              <Input id="password" name="password" />
-            </FormControl>
-            <FormControlLabel
-              control={<Checkbox color="primary" />}
-              label={remember}
-            />
-            <Button
-              variant="contained"
-              type="submit"
-              fullWidth
-              color="primary"
-              className={classes.submit}
-            >
-              {signIn}
-            </Button>
-          </form>
-        </Paper>
-      </main>
-    );
-  }
+  return (
+    <main className={classes.main}>
+      <Paper className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlined />
+        </Avatar>
+        <Typography variant="h5">{signIn}</Typography>
+        <Select value={language} onChange={changeLanguage}>
+          <MenuItem value="english">English</MenuItem>
+          <MenuItem value="french">French</MenuItem>
+          <MenuItem value="spanish">Spanish</MenuItem>
+        </Select>
+        <form className={classes.form}>
+          <FormControl margin="normal" required fullWidth>
+            <InputLabel htmlFor="email">{email}</InputLabel>
+            <Input id="email" name="email" autoFocus />
+          </FormControl>
+          <FormControl margin="normal" required fullWidth>
+            <InputLabel htmlFor="password">{password}</InputLabel>
+            <Input id="password" name="password" />
+          </FormControl>
+          <FormControlLabel
+            control={<Checkbox color="primary" />}
+            label={remember}
+          />
+          <Button
+            variant="contained"
+            type="submit"
+            fullWidth
+            color="primary"
+            className={classes.submit}
+          >
+            {signIn}
+          </Button>
+        </form>
+      </Paper>
+    </main>
+  );
 }
 
 export default withStyles(FormStyles)(Form);
